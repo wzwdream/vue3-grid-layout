@@ -26,9 +26,20 @@ pnpm add vue3-grid-layout -D
 ```
 ## 💡 用法
 
+### 引入
+```js
+// main.ts
+import { createApp } from 'vue'
+import './style.css'
+import App from './App.vue'
+import Vue3GrifLayout from 'vue3-grid-layout-picker'
+createApp(App).use(Vue3GrifLayout).mount('#app')
+```
+
+### 组件中使用
 ```ts
 <template>
-  <div>
+  <div class="layout-box">
         <grid-layout
             v-model:data="layout"
             @draggableStart="draggableStart"
@@ -82,7 +93,14 @@ const remove = (id: string) => {
   console.log('删除', id)
 }
 </script>
+<style>
+.layout-box {
+  width: 1000px;
+}
+</style>
 ```
+> **这里需要注意的一点是，在组件的外层或者组件本身需要指定宽度，不如宽度会计算为0**
+
 
 ## 🎁 Apis
 

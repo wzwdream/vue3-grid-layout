@@ -1,5 +1,5 @@
 {
-  "name": "vue3-grid-layout-picker",
+  "name": "vue3-grid-layout-drop",
   "version": "1.0.0",
   "keywords": [
     "vue3",
@@ -18,13 +18,13 @@
     "dist"
   ],
   "type": "module",
-  "types": "./dist/Vue3GridLayout/types/index.d.ts",
-  "main": "./dist/vue3-grid-layout.cjs",
-  "module": "./dist/vue3-grid-layout.mjs",
+  "types": "./dist/Vue3GridLayout/components/Vue3GridLayout.d.ts",
+  "main": "./dist/vue3-grid-layout-picker.cjs",
+  "module": "./dist/vue3-grid-layout-picker.mjs",
   "exports": {
     ".": {
-      "import": "./dist/vue3-grid-layout.cjs",
-      "require": "./dist/vue3-grid-layout.mjs"
+      "import": "./dist/vue3-grid-layout-picker.cjs",
+      "require": "./dist/vue3-grid-layout-picker.mjs"
     },
     "./dist/style.css": "./dist/style.css"
   },
@@ -32,6 +32,7 @@
   "scripts": {
     "dev": "vite --host  0.0.0.0",
     "build": "vue-tsc && vite build",
+    "build:lib": "vue-tsc && vite build --config ./build/lib.config.ts",
     "eslint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
@@ -45,9 +46,9 @@
     "@vitejs/plugin-vue": "^3.1.0",
     "eslint": "^8.26.0",
     "eslint-plugin-vue": "^9.9.0",
-    "vite-plugin-dts": "^2.3.0",
     "typescript": "^4.9.5",
     "vite": "^3.1.0",
+    "vite-plugin-dts": "^2.3.0",
     "vue-tsc": "^0.40.4"
   }
 }
