@@ -1,6 +1,6 @@
 # 🎄 vue3-grid-layout
 
-![](https://img.shields.io/github/package-json/v/wzwdream/vue3-grid-layout) ![](https://img.shields.io/npm/dm/vue3-grid-layout) ![](https://img.shields.io/bundlephobia/min/vue3-grid-layout) ![](https://img.shields.io/github/wzwdream/vue3-grid-layout)
+![](https://img.shields.io/github/package-json/v/wzwdream/vue3-grid-layout) ![](https://img.shields.io/npm/dm/vue3-grid-layout-picker) ![](https://img.shields.io/bundlephobia/min/vue3-grid-layout) ![](https://img.shields.io/github/wzwdream/vue3-grid-layout)
 
 一个基于vue3+grid布局的网格拖拽布局，支持网格吸附、碰撞检测等。
 

@@ -1,5 +1,5 @@
 {
-  "name": "vue3-grid-layout",
+  "name": "vue3-grid-layout-picker",
   "version": "1.0.0",
   "keywords": [
     "vue3",
@@ -13,7 +13,7 @@
     "name": "wzw",
     "url": "https://wzwdream.github.io/my-blog/"
   },
-  "homepage": "https://wzwdream.github.io/my-blog/",
+  "homepage": "https://github.com/wzwdream/vue3-grid-layout/",
   "files": [
     "dist"
   ],
