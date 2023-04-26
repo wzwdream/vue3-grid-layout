@@ -9,8 +9,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the code
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # fetches all history for all branches and tags
+          ref: ${{ github.ref }} # checkout the branch or tag that triggered the workflow
 
       # Setup Node.js environment
       - uses: actions/setup-node@v2
