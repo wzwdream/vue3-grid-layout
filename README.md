@@ -11,6 +11,7 @@
 -   可调整大小
 -   网格吸附
 -   碰撞检测
+-   兼容移动端（采用 `pointer` 事件编写，兼容移动端）
 
 ## 📦 安装
 
@@ -124,7 +125,7 @@ type Layout = LayoutItem[]
 | drage           | `boolean` | true   | 是否可拖拽                                      |
 | resize          | `boolean` | true   | 是否可缩放                                      |
 | remove          | `boolean` | true   | 是否可删除                                      |
-| isDrawGridLines | `boolean` | true   | 是否绘制网格线_                                 |
+| isDrawGridLines | `boolean` | true   | 是否绘制网格线                                 |
 
 #### GridItem
 

@@ -1,7 +1,6 @@
 <template>
     <div class="grid-item-box" @pointerdown="(e: PointerEvent) => draggableStart(e, 'drag')">
-        <div
-            :class="{ 'grid-item': true, 'grid-resizing': isDraging && handleType === 'resize', 'grid-draging': isDraging && handleType === 'drag' }">
+        <div :class="{ 'grid-item': true, 'grid-resizing': isDraging && handleType === 'resize', 'grid-draging': isDraging && handleType === 'drag' }">
             <slot />
             <div v-show="layoutData?.resize" @pointerdown.stop="(e: PointerEvent) => draggableStart(e, 'resize')">
                 <slot name="resize">
@@ -13,7 +12,6 @@
                 <slot name="remove">
                     <div class="grid-item-remove"></div>
                 </slot>
-
             </div>
         </div>
     </div>

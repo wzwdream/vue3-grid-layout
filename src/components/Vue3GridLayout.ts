@@ -8,3 +8,6 @@ const Vue3GridLayout = {
     }
 }
 export default Vue3GridLayout
+export type GridLayoutInstance = InstanceType<typeof GridLayout>
+export type GridItemInstance = InstanceType<typeof GridItem>
+export * from '../types/index'
