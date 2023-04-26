@@ -1,0 +1,50 @@
+name: Release npm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - uses: actions/checkout@v2
+
+      # Setup Node.js environment
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      # Install dependencies
+      - npm install pnpm -g
+      - pnpm install --no-frozen-lockfile
+
+      # Check if version has changed
+      - name: Check Version
+        run: |
+          old_version=$(node -p "require('./package.json').version")
+
+          # Use npm version to update version number and create a new commit
+          npm version patch
+          new_version=$(node -p "require('./package.json').version")
+
+          if [ "$old_version" == "$new_version" ]; then
+            echo "No new version detected. Skipping publishing."
+            exit 1
+          fi
+
+      # Push changes to GitHub
+      - uses: EndBug/add-and-commit@v7
+        with:
+          message: Bump version to ${{ env.PACKAGE_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+
+      # Publish package to npmjs.com
+      - uses: JS-DevTools/npm-publish@v2
+        with:
+          access: 'public'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

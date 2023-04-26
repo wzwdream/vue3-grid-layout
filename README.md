@@ -33,6 +33,7 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 import Vue3GrifLayout from 'vue3-grid-layout-picker'
+import "vue3-grid-layout-drop/dist/style.css" // 引入组件样式
 createApp(App).use(Vue3GrifLayout).mount('#app')
 ```
 
@@ -56,9 +57,7 @@ createApp(App).use(Vue3GrifLayout).mount('#app')
 </template>
 
 <script setup lang="ts">
-import { Layout, LayoutItem } from '@/types/index';
-import GridLayout from '@/components/grid-layout/index.vue'
-import GridItem from '@/components/grid-item/index.vue'
+import { Layout, LayoutItem } from 'vue3-grid-layout-drop/dist/Vue3GridLayout/types/index'
 import { ref, watch } from 'vue';
 
 const layout = ref([
@@ -99,7 +98,7 @@ const remove = (id: string) => {
 }
 </style>
 ```
-> **这里需要注意的一点是，在组件的外层或者组件本身需要指定宽度，不如宽度会计算为0**
+> **这里需要注意的一点是，在组件的外层或者组件本身需要指定宽度，不然宽度会计算为0**
 
 
 ## 🎁 Apis

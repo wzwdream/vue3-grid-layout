@@ -1,5 +1,5 @@
 {
-  "name": "vue3-grid-layout-drop",
+  "name": "vue3-grid-layout-picker",
   "version": "1.0.0",
   "keywords": [
     "vue3",
@@ -18,16 +18,10 @@
     "dist"
   ],
   "type": "module",
-  "types": "./dist/Vue3GridLayout/components/Vue3GridLayout.d.ts",
-  "main": "./dist/vue3-grid-layout-picker.cjs",
-  "module": "./dist/vue3-grid-layout-picker.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/vue3-grid-layout-picker.cjs",
-      "require": "./dist/vue3-grid-layout-picker.mjs"
-    },
-    "./dist/style.css": "./dist/style.css"
-  },
+  "types": "dist/Vue3GridLayout/components/Vue3GridLayout.d.ts",
+  "main": "dist/vue3-grid-layout-picker.cjs",
+  "module": "dist/vue3-grid-layout-picker.mjs",
+  "style": "dist/style.css",
   "license": "MIT",
   "scripts": {
     "dev": "vite --host  0.0.0.0",
