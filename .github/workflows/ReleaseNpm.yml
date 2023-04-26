@@ -1,41 +1,23 @@
-name: Release npm
+name: Publish to NPM
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
 
 jobs:
-  release:
+  npm-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
         with:
-          fetch-depth: 0 # fetches all history for all branches and tags
-          ref: ${{ github.ref }} # checkout the branch or tag that triggered the workflow
-
-      # Setup Node.js environment
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      # Install dependencies
-      - name: Install pnpm
-        run: npm install pnpm -g
-      - name: Install project dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      # Push changes to GitHub
-      - uses: EndBug/add-and-commit@v7
-        with:
-          message: Bump version to ${{ env.PACKAGE_VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-
-      # Publish package to npmjs.com
+          node-version: "16.x"
+      - run: npm ci
+      - run: npm run build
       - uses: JS-DevTools/npm-publish@v2
         with:
-          access: 'public'
+          package_dir: "./dist"
+          tag: "latest"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
