@@ -1,6 +1,6 @@
 {
-  "name": "vue3-grid-layout-picker",
-  "version": "1.0.0",
+  "name": "vue3-grid-layout-drop",
+  "version": "1.0.1",
   "keywords": [
     "vue3",
     "javascript",
@@ -19,8 +19,8 @@
   ],
   "type": "module",
   "types": "dist/Vue3GridLayout/components/Vue3GridLayout.d.ts",
-  "main": "dist/vue3-grid-layout-picker.cjs",
-  "module": "dist/vue3-grid-layout-picker.mjs",
+  "main": "dist/vue3-grid-layout-drop.cjs",
+  "module": "dist/vue3-grid-layout-drop.mjs",
   "style": "dist/style.css",
   "license": "MIT",
   "scripts": {
