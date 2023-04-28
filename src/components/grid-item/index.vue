@@ -40,16 +40,16 @@ export default defineComponent({
         const layout = computed(() => {
             let data: LayoutItem | undefined
             let xStart = 0, yStart = 0, xEnd = 0, yEnd = 0, width = '0px', height = '0px'
-            if (layoutData?.data) {
-                const { data: itemdata } = findIndexById(layoutData.data, props.id)
+            if (layoutData?.layoutdata) {
+                const { data: itemdata } = findIndexById(layoutData.layoutdata.value, props.id)
                 data = itemdata
                 const { x, y, w, h } = data
                 xStart = x,
-                    yStart = y,
-                    xEnd = x + w,
-                    yEnd = y + h
-                width = `${(w - 1) * layoutData.gutter + w * layoutData.colWidth}px`
-                height = `${(h - 1) * layoutData.gutter + h * layoutData.rowH}px`
+                yStart = y,
+                xEnd = x + w - 1,
+                yEnd = y + h
+                width = `${(w - 1) * layoutData.gutter.value + w * layoutData.colWidth.value}px`
+                height = `${(h - 1) * layoutData.gutter.value + h * layoutData.rowH.value}px`
             }
             return {
                 xStart,
@@ -104,8 +104,8 @@ export default defineComponent({
 
             if (handleType.value === 'resize' && layoutData) {
                 const { width, height } = layout.value
-                const newWidth = Math.max(parseInt(width) + shiftX, layoutData.colWidth)
-                const newHeight = Math.max(parseInt(height) + shiftY, layoutData.rowH)
+                const newWidth = Math.max(parseInt(width) + shiftX, layoutData.colWidth.value)
+                const newHeight = Math.max(parseInt(height) + shiftY, layoutData.rowH.value)
                 style.width = `${newWidth}px`
                 style.height = `${newHeight}px`
             }

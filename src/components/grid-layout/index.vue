@@ -13,9 +13,10 @@ import { DraggableStart, DraggableHandle, DraggableEnd, Removes, HandleType } fr
 import { key } from '../../help/key'
 import useDrage from '../../help/useDrage'
 import useLayout from '../../help/useLayout'
-import { calcColWidth, calcHeight, drawGridLines } from '../../help/utils';
+import { calcColWidth, calcHeight, deepClone, drawGridLines } from '../../help/utils';
 import { defaultProps } from './defualtProps'
-import { defineComponent, onMounted, reactive, ref, watchEffect, provide } from 'vue';
+import { defineComponent, onMounted, reactive, ref, watchEffect, provide, watch } from 'vue';
+import { checkLayout } from '@/help/dragerule';
 
 export default defineComponent({
     name: "GridLayout",
@@ -29,7 +30,23 @@ export default defineComponent({
         /**
          * 引用hook，分离拖拽、缩放、删除的逻辑代码
          */
-        const { dragData, draggableStart, draggableHandle, draggableEnd, isDraging, removes, propsId, dragingstyle } = useDrage(props)
+        const {
+            draggableStart,
+            draggableHandle,
+            draggableEnd,
+            isDraging,
+            removes,
+            propsId,
+            dragingstyle,
+            layoutdata,
+            col,
+            rowH,
+            gutter,
+            drage,
+            resize,
+            removeItem,
+            isDrawGridLines,
+        } = useDrage(props)
         const { rowHeight, colWidth, layoutStyle, updateStyle } = useLayout()
         /**
          * 保证hook中的数据是最新数据
@@ -37,22 +54,23 @@ export default defineComponent({
         watchEffect(() => {
             // 绘制网格线
             if (canvas.value && gridLayout.value && props.isDrawGridLines) {
-                drawGridLines(canvas.value, rowHeight.value, gridLayout.value.clientWidth, colWidth.value, dragData.rowH, dragData.gutter)
+                drawGridLines(canvas.value, rowHeight.value, gridLayout.value.clientWidth, colWidth.value, rowH.value, gutter.value)
             }
-            if (props.data) dragData.data = props.data
-            dragData.drage = props.drage
-            dragData.rowH = props.rowH
-            dragData.col = props.col
-            dragData.gutter = props.gutter
-            dragData.resize = props.resize
-            dragData.remove = props.remove
-            updateStyle(dragData.col, dragData.rowH, dragData.gutter)
+            if (props.data) layoutdata.value = deepClone(checkLayout(props.data, props.col))
+            drage.value = props.drage
+            rowH.value = props.rowH
+            col.value = props.col
+            gutter.value = props.gutter
+            resize.value = props.resize
+            removeItem.value = props.remove
+            isDrawGridLines.value = props.isDrawGridLines
+            updateStyle(col.value, rowH.value, gutter.value)
         })
         /**
          * 抛出emit事件
          */
         const updateData = () => {
-            emit('update:data', dragData.data)
+            emit('update:data', layoutdata.value)
         }
         const dragStart: DraggableStart = (id: string) => {
             draggableStart(id)
@@ -60,13 +78,13 @@ export default defineComponent({
         }
         const dragHandle: DraggableHandle = (shiftX: number, shiftY: number, handleType?: HandleType) => {
             const { newData, newItem } = draggableHandle(shiftX, shiftY, colWidth.value, handleType)
-            rowHeight.value = calcHeight(dragData.rowH, dragData.gutter, newData)
+            rowHeight.value = calcHeight(rowH.value, gutter.value, newData)
             emit('draggableHandle', propsId.value, newItem)
         }
         const dragEnd: DraggableEnd = () => {
             draggableEnd()
             updateData()
-            emit('draggableEnd', dragData.data)
+            emit('draggableEnd', layoutdata.value)
         }
         const remove: Removes = (id: string) => {
             removes(id)
@@ -79,10 +97,14 @@ export default defineComponent({
         const gridLayout = ref<HTMLDivElement | null>(null)
         const calcWidth = () => {
             if (gridLayout.value) {
-                const { col, gutter } = dragData
-                colWidth.value = calcColWidth(col, gutter, gridLayout.value.clientWidth)
+                colWidth.value = calcColWidth(col.value, gutter.value, gridLayout.value.clientWidth)
             }
         }
+        watch(col, () => {
+            calcWidth()
+            layoutdata.value = deepClone(checkLayout(layoutdata.value, col.value))
+            console.log('layoutdata', layoutdata.value)
+        })
         onMounted(() => {
             calcWidth()
             if (props.data) {
@@ -93,20 +115,20 @@ export default defineComponent({
         /**
          * 注入的参数
          */
-        const provideData = reactive({
-            data: dragData.data, // 布局数据
-            rowH: dragData.rowH, // item高度
-            col: dragData.col, // 列数
-            gutter: dragData.gutter, // 间距
+        const provideData = {
+            layoutdata, // 布局数据
+            rowH, // item高度
+            col, // 列数
+            gutter, // 间距
             colWidth, // item宽度
-            drage: dragData.drage, // 是否可拖拽
-            resize: dragData.resize, // 是否可缩放
-            remove: dragData.remove, // 是否可删除
+            drage, // 是否可拖拽
+            resize, // 是否可缩放
+            remove: removeItem, // 是否可删除
             draggableStart: dragStart, // 拖拽开始
             draggableHandle: dragHandle, // 拖拽中
             draggableEnd: dragEnd, // 拖拽结束
             removes: remove // 删除元素方法
-        })
+        }
         provide(key, provideData)
         return {
             layoutStyle,

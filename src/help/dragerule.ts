@@ -1,5 +1,5 @@
 import { Layout, LayoutItem } from '../types/index'
-import { findIndexById } from './utils'
+import { deepClone, findIndexById } from './utils'
 
 /**
  * 布局项是否发生了位置、大小变化
@@ -65,6 +65,7 @@ export const collisionAvoidanceForItem = (layout: Layout, itemId: string, col: n
                 break;
             default:
                 y++
+                x = 1
                 direction = "left"
         }
     }
@@ -98,4 +99,27 @@ export const collisionAvoidanceForItems = (layout: Layout, itemIds: string[], co
         newLayout = collisionAvoidanceForItem(newLayout, itemId, col)
     }
     return newLayout
+}
+/**
+ * 检测布局是否有冲突，是否超出边界
+ * @param data 布局数据
+ * @param col 列数
+ * @returns 新的布局数据
+ */
+export const checkLayout = (data: Layout, col: number) => {
+    let temp = deepClone(data)
+    for (let i = 0; i < temp.length; i++) {
+        const item = temp[i]
+        if (item.x + item.w > col + 1) {
+            item.x = 1
+        }
+        if (item.w > col) {
+            item.w = col
+        }
+        if (collisionDetection(temp, item)) {
+            const collidingIndexes = getCollidingIndexes(temp, item)
+            temp = collisionAvoidanceForItems(temp, collidingIndexes, col)
+        }
+    }
+    return temp
 }
