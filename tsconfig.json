@@ -6,6 +6,7 @@
     "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
+    "declaration": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -22,7 +23,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "./auto-imports.d.ts",
+    "./auto-imports.d.ts", "lib/index.ts",
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

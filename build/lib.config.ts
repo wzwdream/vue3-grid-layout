@@ -14,17 +14,14 @@ export default defineConfig({
     plugins: [
         vue(),
         dts({
-            outputDir: 'dist/Vue3GridLayout',
-            include: [
-                './src/types/index.ts',
-                './src/components/**/*.vue',
-                './src/components/Vue3GridLayout.ts'
-            ]
+            outputDir: "./dist/types",
+            insertTypesEntry: false,
+            copyDtsFiles: true
         })
     ],
     build: {
         lib: {
-            entry: 'src/components/Vue3GridLayout.ts',
+            entry: 'src/Vue3GridLayout/index',
             name: 'vue3GridLayout',
             formats: ['es', 'cjs', 'umd'],
             fileName(format) {

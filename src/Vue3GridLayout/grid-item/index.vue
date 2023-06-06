@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts">
-import { LayoutItem, HandleType } from '../../types/index'
-import { key } from '../../help/key'
-import { findIndexById } from '../../help/utils';
+import { LayoutItem, HandleType } from '../types'
+import { key } from '../help/key'
+import { findIndexById } from '../help/utils';
 import { computed, defineComponent, inject, reactive, ref } from 'vue';
 
 export default defineComponent({

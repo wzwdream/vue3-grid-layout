@@ -1,5 +1,5 @@
 import { computed, reactive, ref } from 'vue'
-import { propsData, LayoutItem, HandleType, Layout } from '../types/index'
+import { propsData, LayoutItem, HandleType, Layout } from '../types'
 import { checkLayout, collisionAvoidanceForItems, collisionDetection, getCollidingIndexes } from './dragerule'
 import { calcBoundary, deepClone, findIndexById } from './utils'
 const useDrage = (data: propsData) => {

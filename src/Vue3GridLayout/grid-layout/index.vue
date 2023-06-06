@@ -9,14 +9,14 @@
 </template>
 
 <script lang="ts">
-import { DraggableStart, DraggableHandle, DraggableEnd, Removes, HandleType } from '../../types/index'
-import { key } from '../../help/key'
-import useDrage from '../../help/useDrage'
-import useLayout from '../../help/useLayout'
-import { calcColWidth, calcHeight, deepClone, drawGridLines } from '../../help/utils';
+import { DraggableStart, DraggableHandle, DraggableEnd, Removes, HandleType } from '../types'
+import { key } from '../help/key'
+import useDrage from '../help/useDrage'
+import useLayout from '../help/useLayout'
+import { calcColWidth, calcHeight, deepClone, drawGridLines } from '../help/utils';
 import { defaultProps } from './defualtProps'
 import { defineComponent, onMounted, reactive, ref, watchEffect, provide, watch } from 'vue';
-import { checkLayout } from '@/help/dragerule';
+import { checkLayout } from '../help/dragerule';
 
 export default defineComponent({
     name: "GridLayout",

@@ -1,4 +1,4 @@
-import { Layout, LayoutItem } from '../types/index'
+import { Layout, LayoutItem } from '../types'
 import { deepClone, findIndexById } from './utils'
 
 /**

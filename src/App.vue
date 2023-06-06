@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { Layout, LayoutItem } from '@/types/index';
+import { Layout, LayoutItem } from './Vue3GridLayout/types';
 import GridLayout from '@/components/grid-layout/index.vue'
 import GridItem from '@/components/grid-item/index.vue'
 import { ref, watch } from 'vue';
